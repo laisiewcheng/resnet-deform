@@ -14,7 +14,7 @@ import torch.nn as nn
 import torchvision
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
-import resnet
+import resnet_deform
 
 import datetime
 
@@ -82,7 +82,7 @@ def main():
 #        print('not evaluate')   
 #        
     #load model ResNet101 to device
-    model = resnet.ResNet101()
+    model = resnet_deform.ResNet101()
     model = model.to(device)
    
     #can add code to use multi GPU here
