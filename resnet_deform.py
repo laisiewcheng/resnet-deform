@@ -87,7 +87,7 @@ class Bottleneck(nn.Module):
             )
 
     def forward(self, x):
-        print('*************************START******************************')
+        print('*************************START******************************', file = f1)
         print('x: ', x.size(), file = f1)
         out = F.relu(self.bn1(self.conv1(x)))
         print('out1: ', out.size(), file = f1)
@@ -98,10 +98,10 @@ class Bottleneck(nn.Module):
         print('x2: ', x.size(), file = f1)
         out += self.shortcut(x)
         print('out4: ', out.size(), file = f1)
-        print('x3: ', x.size())
+        print('x3: ', x.size(), file = f1)
         out = F.relu(out)
         print('out5: ', out.size(), file = f1)
-        print('***************************END******************************')
+        print('***************************END******************************', file = f1)
 
         return out
 
@@ -141,22 +141,25 @@ class ResNet(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
-        print('START RESNET 101')
-        print('input x to network: ', x.size())
+        print('START RESNET 101', file = f1)
+        print('input x to network: ', x.size(), file = f1)
         out = F.relu(self.bn1(self.conv1(x)))
-        print('out1 resnet: ', out)
-        print('START LAYER 1 WITH 16 FILTER')
+        print('out1 resnet: ', out.size(), file = f1)
+        print('START LAYER 1 WITH 16 FILTER', file = f1)
         out = self.layer1(out)
-        print('out2 from layer 1: ', out)
-        print('START LAYER 2 WITH 32 FILTER')
+        print('out2 from layer 1: ', out.size(), file = f1)
+        print('START LAYER 2 WITH 32 FILTER', file = f1)
         out = self.layer2(out)
-        print('out3 from layer 2: ', out)
-        print('START LAYER 3 WITH 64 FILTER')
+        print('out3 from layer 2: ', out.size(), file = f1)
+        print('START LAYER 3 WITH 64 FILTER', file = f1)
         out = self.layer3(out)
-        print('out4 from layer 3: ', out)
-        out = F.avg_pool2d(out, 8)
+        print('out4 from layer 3: ', out.size(), file = f1)
+        out = F.avg_pool2d(out, 8) 
+        print('out5 from avg pool: ', out.size(), file = f1)
         out = out.view(out.size(0), -1)
+        print('out6 from view: ', out.size(), file = f1)
         out = self.linear(out)
+        print('out7 from linear: ', out.size(), file = f1)
 
         return out
     
